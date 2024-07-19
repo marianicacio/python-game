@@ -1,4 +1,3 @@
-
 import pygame # type: ignore #biblioteca de jogo
 #python -m pip install pygame
 pygame.init()#para abrir o pygame
@@ -20,7 +19,8 @@ menu = pygame.image.load("img/bar.png")
 #colocar a bolinha para rolar
 bola_x = 617
 bola_y = 337
-bola_dir = -2
+bola_dir = -5
+bola_dir_y = 1
 
 def draw():
     #Carregar as imagens
@@ -32,9 +32,12 @@ def draw():
 
 def move_bola():
     global bola_x
+    global bola_y
     global bola_dir
+    global bola_dir_y
     #Para mover a bola para a direita
     bola_x += bola_dir
+    bola_y += bola_dir_y
 
     if bola_x < 123:
         if jogador1_y < bola_y + 23:
@@ -45,6 +48,23 @@ def move_bola():
         if jogador2_y < bola_y + 23:
             if jogador2_y + 146> bola_y:
                 bola_dir *= -1
+
+    if bola_y > 685:
+        bola_dir_y *= -1
+    elif bola_y <= 0:
+        bola_dir_y *= -1
+
+    if bola_x < -50: #se a bola sair da tela
+        bola_x = 617
+        bola_y = 337
+        bola_dir *= -1
+        bola_dir_y *= -1
+    elif bola_x > 1320:
+        bola_x = 617
+        bola_y = 337
+        bola_dir *= -1
+        bola_dir_y *= -1
+
 
 def move_jogador():
     global jogador1_y
@@ -63,6 +83,10 @@ def move_jogador():
         jogador1_y = 0
     elif jogador1_y >= 575:
         jogador1_y = 575
+
+def move_jogador2():
+    global jogador2_y
+    jogador2_y = bola_y
     
 #para manter a janela aberta:
 loop = True
@@ -84,6 +108,7 @@ while loop:
     draw()
     move_bola()
     move_jogador()
+    move_jogador2()
     #quero que atualize sempre quando houver mudança
     pygame.display.update()
 pygame.quit()#para fechar o pygame
