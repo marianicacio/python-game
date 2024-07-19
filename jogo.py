@@ -16,6 +16,10 @@ jogador2 = pygame.image.load("img/player2.png")
 jogador2_y = 310
 bola = pygame.image.load("img/ball.png")
 menu = pygame.image.load("img/bar.png")
+score1 = 0
+score1_img = pygame.image.load("img/0.png")
+score2 = 0
+score2_img = pygame.image.load("img/0.png")
 #colocar a bolinha para rolar
 bola_x = 617
 bola_y = 337
@@ -27,8 +31,10 @@ def draw():
     window.blit(campo,(0,0))
     window.blit(jogador1,(50, jogador1_y))
     window.blit(jogador2,(1150,jogador2_y))
-
     window.blit(bola,(bola_x,bola_y))
+    window.blit(score1_img,(500,50))
+    window.blit(score2_img,(710,50))
+
 
 def move_bola():
     global bola_x
